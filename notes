@@ -1,0 +1,20 @@
+";".join(["%s=%s" % (k, v) for k, v in this_is_a_dict.items()]
+
+    this_is_a_dict : dict
+    this_is_a_dict.items() : tuple
+    After the list comprehension: list
+    After the join: string
+
+import <module>
+
+    A module is a chunk of Python code
+    After importing, you have access to a module's public functions, classes and helpers
+
+    In [13]: sys
+    Out[13]: <module 'sys' (built-in)>
+
+    Built-in modules are not Python code, and therefore the code isn't stored in .py files. Built-in modules are likely to be written in C (sys is), and they're baked right into Python itself
+
+Remember - EVERYTHING is an object in Python
+
+    In the Python sense, this just means that objects can be assigned to variables or that you can pass it as an argument to a function
