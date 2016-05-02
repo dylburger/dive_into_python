@@ -1,2 +1,2 @@
-# dive_into_python
+# Dive Into Python
 Working through examples / problems in Dive Into Python
