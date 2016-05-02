@@ -18,3 +18,11 @@ import <module>
 Remember - EVERYTHING is an object in Python
 
     In the Python sense, this just means that objects can be assigned to variables or that you can pass it as an argument to a function
+
+In Python, blocks are delimited by a colon, and the indentation of the code that follows
+
+if __name__ == "__main__"
+
+    This is a trick we can use to execute test code in a given module if the module was run as a standalone program
+        If we import the module and use it in another program, __name__ will hold the value of the module name
+        If we run the module as a standalone script, the value of __name__ will be "__main__"
