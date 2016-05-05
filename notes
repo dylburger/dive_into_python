@@ -18,6 +18,7 @@ import <module>
 Remember - EVERYTHING is an object in Python
 
     In the Python sense, this just means that objects can be assigned to variables or that you can pass it as an argument to a function
+    Modules, functions, classes, instances of classes, etc. - all of these are object in the typical (and the Pythonic sense)
 
 In Python, blocks are delimited by a colon, and the indentation of the code that follows
 
@@ -31,3 +32,27 @@ Generators
     Benefits: cleaner code, lower memory requirements than if we were to store items in a single list
     In Python 3, range() is a generator. Use the built-in code, since it'll run very fast!
     Generators return values lazily, which means lower memory usage
+
+== Here, I started to work through Dive Into Python 3, recognizing that my choice of Python 2 was out-of-date!
+
+    http://www.diveintopython3.net/your-first-python-program.html
+
+Python functions (unlike C, for instance) do not define a return datatype. If a function doesn't return a value explicitly, it will return None, the Python null value
+
+    In Python, everything is a function, all functions return a value, and all functions start with def!
+
+Variables, moreoever, are also not explicitly typed. Python keeps track of the type of a variable internally
+
+Function arguments can be specified in any order if you name those arguments when you pass them to the function
+    
+    If an argument has a default value specified in the function definition, that argument is optional (the argument will hold the default value in this case, through the execution of the function)
+    If you don't name the arguments when passing them in the function call, you must pass them in positional order (as defined in the function definition)
+    But as soon as you have a named argument, ALL arguments following that one must also be named. Otherwise, you'll get an error like:
+
+        SyntaxError: positional argument follows keyword argument
+
+A docstring, if defined, must be the first thing in your Python function / program (before importing modules, etc.)
+
+In Python, exceptions indicate some error condition raised by a child function / program, which you "handle" in some way. If you see some exception printed out to your shell, this exception is "unhandled"
+
+    Exceptions are actually implemented as classes. Each time you issue the "raise" statement and pass a string, or something else, to it, you're creating an instance of the specified exception class (i.e. passing these data to that class's initialization method)
