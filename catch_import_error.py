@@ -6,4 +6,8 @@ try:
     import chardet
 except ImportError:
     chardet = None
+
+if chardet:
+    print("chardet module is installed")
+else:
     print("chardet module not installed on this system")
