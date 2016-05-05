@@ -26,3 +26,8 @@ if __name__ == "__main__"
     This is a trick we can use to execute test code in a given module if the module was run as a standalone program
         If we import the module and use it in another program, __name__ will hold the value of the module name
         If we run the module as a standalone script, the value of __name__ will be "__main__"
+
+Generators
+    Benefits: cleaner code, lower memory requirements than if we were to store items in a single list
+    In Python 3, range() is a generator. Use the built-in code, since it'll run very fast!
+    Generators return values lazily, which means lower memory usage
