@@ -56,3 +56,296 @@ A docstring, if defined, must be the first thing in your Python function / progr
 In Python, exceptions indicate some error condition raised by a child function / program, which you "handle" in some way. If you see some exception printed out to your shell, this exception is "unhandled"
 
     Exceptions are actually implemented as classes. Each time you issue the "raise" statement and pass a string, or something else, to it, you're creating an instance of the specified exception class (i.e. passing these data to that class's initialization method)
+
+    Case where you may want to handle an ImportError: say you want to parse xml, and would prefer to use the lxml library since it's faster. The user must have this library installed, so if they don't, you're willing to fall back on the ElementTree class, part of the Python3 standard library:
+
+        try:
+            from lxml import etree
+        except ImportError:
+            import xml.etree.ElementTree as etree
+
+    Moreover, since you're naming the module etree regardless of which one you end up using, the code that follows can reference etree.* functions and you don't have to worry about checking for the presence of a particular module afterwards
+
+    Trying to reference a variable that hasn't yet been defined will raise a NameError exception
+
+Datatypes
+
+Numbers
+
+    Python distinguishes integers and floating point numbers, primarily
+
+    You can get the type of a variable by using the type(var) function:
+
+    In [1]: a = 1
+
+    In [2]: type(a)
+    Out[2]: int
+
+    In [3]: b = 1.0
+
+    In [4]: type(b)
+    Out[4]: float
+
+    In [5]: c = 1/3
+
+    In [6]: type(c)
+    Out[6]: float
+
+    In [7]: import pytz
+
+    In [8]: type(pytz)
+    Out[8]: module
+
+    You can also use the isinstance() function to check whether a value or variable is of a given type (passed as an argument to the function):
+
+        In [12]: isinstance(1, int)
+        Out[12]: True
+
+    When adding two ints, the result is an int
+    When adding an int and a float, the result is a float (Python "coerces" the integer to a float for addition, THEN returns a float)
+
+    You can manually coerce values / variables like so:
+
+        In [13]: float(1)
+        Out[13]: 1.0
+
+        In [14]: int(3.0)
+        Out[14]: 3
+
+    Note that int will truncate, NOT round
+
+        In [15]: int(3.9)
+        Out[15]: 3
+
+    Python 2 had two integer types - int and long. Python 3 has just one, which behaves like long (integers can be arbitrarily big)
+
+    You can do some interesting operations with numbers:
+
+        In [16]: 4 / 3
+        Out[16]: 1.3333333333333333
+
+        > Note that, even though 4 and 3 were both integers, Python returned a float. This is also new behavior in Python 3
+
+        In [17]: 4 // 3
+        Out[17]: 1
+
+        > You get integer division with truncation for results that are positive with the // operator
+
+        In [18]: - 4 // 3
+        Out[18]: -2
+
+        > BUT, when the result is negative, you're also truncating "down", which gets you a -2 in this case. This behavior can be tricky
+
+        In [19]: 2 ** 3
+        Out[19]: 8
+
+        > The ** operator raises the base to a power: base ** power
+
+        In [20]: 4 % 3
+        Out[20]: 1
+
+        > % is the modulo operator (gives you the remainder after performing integer division)
+
+Fractions
+
+    In [21]: import fractions
+
+    In [22]: x = fractions.Fraction(1, 3)
+
+    In [23]: x
+    Out[23]: Fraction(1, 3)
+
+    > You can also use a Fractions class in the fractions module to create fractions
+
+    In [24]: y = fractions.Fraction(6, 4)
+
+    In [25]: y
+    Out[25]: Fraction(3, 2)
+
+    > This will reduce fractions for you automatically
+
+You can use numbers in a boolean context. Zero values are false, non-zero values true
+
+Booleans
+
+    True and False are constants defined by Python
+    An expression that expects evaluation to a  boolean value (e.g. an if statement) is called a "boolean context"
+        You can use virtually any expression in a boolean context, and Python will attempt to evaluate it
+    Booleans can actually be treated as numbers (this is legacy from Python 2): True evaluates to 1 and False to 0
+
+        In [9]: True + True
+        Out[9]: 2
+
+        In [10]: False + False
+        Out[10]: 0
+
+        In [11]: False + True + False
+        Out[11]: 1
+
+    but don't ever do this!
+
+Lists
+    
+    Python lists are different than arrays in C, for instance, where you have to define the size and store items only of the same datatype. You don't have to do that in Python
+    Akin to an array in Perl, or an ArrayList in Java
+
+    In [26]: a_list = ['a', 'b', 'mpilgrim', 'z', 'example']
+
+    In [27]: a_list[0]
+    Out[27]: 'a'
+
+    In [29]: a_list[-1]
+    Out[29]: 'example'
+
+    In [30]: a_list[-3]
+    Out[30]: 'mpilgrim'
+
+    > When thinking about negative indices, remember that a[-n] is equivalent to a[len(list) - n]. Here, len(a_list) is 5, so 5 - 3 = 2, the third element of the list
+
+    In [31]: a_list[1:3]
+    Out[31]: ['b', 'mpilgrim']
+
+    In [32]: a_list[1:-1]
+    Out[32]: ['b', 'mpilgrim', 'z']
+
+    > You can "slice lists". The syntax above gives you a_list[first element : up to but not including last element]
+
+    In [33]: a_list[:3]
+    Out[33]: ['a', 'b', 'mpilgrim']
+
+    In [34]: a_list[3:]
+    Out[34]: ['z', 'example']
+
+    In [35]: a_list[:]
+    Out[35]: ['a', 'b', 'mpilgrim', 'z', 'example']
+
+    > If you leave out the first index, Python assumes you mean 0. 
+      If you leave out the last, Python assumes you mean the last element
+      Leaving out both indices returns a COPY of the complete, original list
+
+    In [37]: a_list = ['a']
+
+    In [38]: a_list = a_list + [2.0, 3]
+
+    In [39]: a_list
+    Out[39]: ['a', 2.0, 3]
+
+    > You can append items to a list simply by adding two lists together with +. Note that this operation creates a second list in memory
+    
+    In [40]: a_list.append(True)
+
+    In [41]: a_list
+    Out[41]: ['a', 2.0, 3, True]
+
+    > You can also use the 'append' method of a list to add new elements to the end of a list
+
+    In [42]: a_list.extend(['four', 'omega'])
+
+    In [43]: a_list
+    Out[43]: ['a', 2.0, 3, True, 'four', 'omega']
+
+    > Extend will take each element of the list passed to it and add it to the original list on which extend is operating.
+      Note that lists are implemented as classes. Therefore, you have instance methods like append and extend that you can reference with instance.method notation, like we are above
+
+    In [44]: a_list.insert(0, 'omega')
+
+    In [45]: a_list
+    Out[45]: ['omega', 'a', 2.0, 3, True, 'four', 'omega']
+
+    > You can insert new elements in arbitrary places in a list using the insert method. The first argument is the index that will get bumped out of place to make room for the new element
+
+    append takes a single argument, which can be of any datatype, and adds it to the end of the list
+    extend takes a list of n elements, adding those to the end of the list (you're still left with a single list)
+
+    In [46]: l = [1, 2, 3]
+
+    In [47]: l.extend([4, 5, 6])
+
+    In [48]: l
+    Out[48]: [1, 2, 3, 4, 5, 6]
+
+    In [49]: l.append([7, 8, 9])
+
+    In [50]: l
+    Out[50]: [1, 2, 3, 4, 5, 6, [7, 8, 9]]
+
+    > Remember - append can take a single argument of ANY datatype, including a list!
+
+    In [51]: a_list = ['a', 'b', 'new', 'mpilgrim', 'new']
+
+    In [52]: a_list.count('new')
+    Out[52]: 2
+
+    > You can count the number of times a given element appears in a specified list
+
+    In [54]: 'new' in a_list
+    Out[54]: True
+
+    > You can ask whether a specified element is in the list at all, and get a boolean value back
+
+    In [55]: a_list.index('mpilgrim')
+    Out[55]: 3
+
+    > You can ask at what index a specific value appears. If the value appears more than once in the list, the first index is returned
+
+    In [56]: a_list.index('c')
+    ---------------------------------------------------------------------------
+    ValueError                                Traceback (most recent call last)
+    <ipython-input-56-4e77f8c6f6f7> in <module>()
+    ----> 1 a_list.index('c')
+
+    ValueError: 'c' is not in list
+
+    > If you don't check to see if the element exists in the list and ask for its index, Python will raise a ValueError exception
+      This behavior might be unexpected, but it prevents you from doing stupid things with indices (like -1) that other languages would return. In the Python case, -1 is an actual index, so you don't want that returned and attemp to reference it later!
+
+    In [57]: a_list
+    Out[57]: ['a', 'b', 'new', 'mpilgrim', 'new']
+
+    In [58]: del a_list[1]
+
+    In [59]: a_list
+    Out[59]: ['a', 'new', 'mpilgrim', 'new']
+
+    > del list[index] will delete the element at the specified index and collapse the rest of the elements into place
+
+    In [59]: a_list
+    Out[59]: ['a', 'new', 'mpilgrim', 'new']
+
+    In [60]: a_list.remove('new')
+
+    In [61]: a_list
+    Out[61]: ['a', 'mpilgrim', 'new']
+
+    In [62]: a_list.remove('new')
+
+    In [63]: a_list.remove('new')
+    ---------------------------------------------------------------------------
+    ValueError                                Traceback (most recent call last)
+    <ipython-input-63-c2064dc3d02e> in <module>()
+    ----> 1 a_list.remove('new')
+
+    ValueError: list.remove(x): x not in list
+
+    > You can also remove a value from a list by name with the remove method
+      But, as we saw with the index() method, if the element you specify doesn't exist, Python will raise a ValueError. This is a bit more expected behavior
+
+    In [64]: a_list = ['a', 'b', 'new', 'mpilgrim']
+
+    In [65]: a_list.pop()
+    Out[65]: 'mpilgrim'
+
+    In [66]: a_list
+    Out[66]: ['a', 'b', 'new']
+
+    > By default, the pop method removes the last element of a list and RETURNS THE VALUE
+
+    In [67]: a_list.pop(1)
+    Out[67]: 'b'
+
+    In [68]: a_list
+    Out[68]: ['a', 'new']
+
+    > You can also specify an index to pop
+
+    Note that any empty list is False, and any list, even if the element contained within the list is the boolean value False, is True
