@@ -557,6 +557,99 @@ Sets
         In [141]: a_set.difference(b_set)
         Out[141]: {4, 30, 51, 76, 127, 195}
 
+    The symmetric_difference method will return the elements that are a part of exactly one set
 
+        In [142]: a_set.symmetric_difference(b_set)
+        Out[142]: {1, 3, 4, 6, 8, 15, 17, 18, 30, 51, 76, 127, 195}
 
-    
+    In iPython, I can <Tab><Tab> after a_set. to see the methods I can use as a part of the set class:
+
+        In [142]: a_set.
+        a_set.add                          a_set.difference_update            a_set.isdisjoint                   a_set.remove                       a_set.update
+        a_set.clear                        a_set.discard                      a_set.issubset                     a_set.symmetric_difference
+        a_set.copy                         a_set.intersection                 a_set.issuperset                   a_set.symmetric_difference_update
+        a_set.difference                   a_set.intersection_update          a_set.pop                          a_set.union
+
+    I can check if a set is a subset or superset of another, for instance!
+
+    I can define a set with a trailing comma, and Python will be OK with it
+
+        In [148]: b = {1, 2,}
+
+        In [149]: b
+        Out[149]: {1, 2}
+
+    The symmetric difference of both sets on one another is the same:
+
+        In [150]: a_set.symmetric_difference(b_set) == b_set.symmetric_difference(a_set)
+        Out[150]: Trueo
+
+    So is the union and intersection, but not the difference
+
+    In a boolean context, an empty set is false, and a non-empty set is true
+
+Dictionaries
+
+    A dictionary is an unordered set of key-value pairs
+    Python dictionaries are optimized for finding a value when you know a key
+        These are like hashes in Perl
+
+    The syntax for creating dictionaries is similar to sets:
+
+        In [151]: a_dict = {'foo': 'bar'}
+
+        In [152]: a_dict
+        Out[152]: {'foo': 'bar'}
+
+    You can reference keys by name, and if you try to access a key that doesn't exist in the dictionary, Python will raise a KeyError:
+
+        In [154]: a_dict['foo']
+        Out[154]: 'bar'
+
+        In [155]: a_dict['bar']
+        ---------------------------------------------------------------------------
+        KeyError                                  Traceback (most recent call last)
+        <ipython-input-155-86e01de40907> in <module>()
+        ----> 1 a_dict['bar']
+
+        KeyError: 'bar'
+
+    You can change values of existing keys, and add new key-value pairs, using a similar syntax:
+
+        In [157]: a_dict['foo'] = 'test'
+
+        In [158]: a_dict
+        Out[158]: {'foo': 'test'}
+
+    Keys are case-sensitive:
+
+        In [163]: a_dict['Foo'] = 'test'
+
+        In [164]: a_dict
+        Out[164]: {'Foo': 'test', 'bar': 'baz', 'foo': 'test'}
+
+    len() gives you the number of keys in a dictionary
+
+        In [165]: len(a_dict)
+        Out[165]: 3
+
+    Just like the rest of our data types, empty dictionaries evaluate to False and dictionaries with at least one item evaluate to True
+
+None
+
+    None is a special constant in Python to represent a null value
+    None is NOT the same as False, 0, an empty string, etc.
+    None has its own data type, NoneType
+
+    In a boolean context, None is False and not None is True
+
+        In [166]: if None:
+           .....:     print("True")
+           .....:
+
+        In [167]: if not None:
+           .....:     print("True")
+           .....:
+        True
+        
+
